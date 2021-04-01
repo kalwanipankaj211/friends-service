@@ -1,0 +1,100 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: User Friend Service
+  description: User Friend Service System
+host: 'localhost:3000'
+basePath: /
+tags: 
+- name: User 
+  description: User System Management
+schemes: 
+- http
+- https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /createUser:
+    post:
+      tags:
+      - post user
+      summary: post users
+      description: Post users
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          type: object
+          description: User details that need to saved
+          required: true
+          schema:
+              $ref: '#/definitions/UserData'
+      responses:
+        '200':
+          description: Movie Data
+          schema:
+            type: string
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /getAllUsers:
+    get:
+      tags:
+      - get All Users
+      summary: get All Users
+      description: To get All Users
+      responses:
+        '200':
+          description: Users 
+          schema:
+            type: string
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /getUserById:
+    get:
+      tags:
+      - get User By Id
+      summary: get Users By Id
+      description: To get User by id
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          in: path
+          type: string
+          description: User details that need to be get by id
+          required: true
+      responses:
+        '200':
+          description: Users 
+          schema:
+            type: string
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  x-swagger-router-controller: userController
+definitions:
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  UserData:
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      friends:
+        type: array
+        items:
+          type: string
