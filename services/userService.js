@@ -64,6 +64,34 @@ function getAllUsers(req, res) {
                 }
                 reject(error);
             })
+        User.find()
+            .exec().then(result => {
+                console.log("result", result);
+                const message = {
+                    status: 200,
+                    message: 'Get All Users',
+                    users: result
+                }
+                if (result && result.length > 0) {
+                    resolve(message);
+                } else {
+                    const error = {
+                        status: 500,
+                        message: 'Could not get users',
+                    }
+                    reject(error);
+                }
+
+            })
+            .catch(err => {
+                console.log(err);
+                const error = {
+                    status: 500,
+                    message: 'Could not get users',
+                    err: err
+                }
+                reject(error);
+            })
     })
 }
 
